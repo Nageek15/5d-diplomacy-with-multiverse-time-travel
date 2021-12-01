@@ -1,8 +1,12 @@
 package processing;
 
 import graphics.GameDisplay;
+import graphics.Panel;
 
 import javax.swing.*;
+
+import gameutil.text.Console;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -532,7 +536,7 @@ public class Game {
     {
         for (Board board : boards)
         {
-            System.out.println("\n" + board + ":");
+            Console.s.println("\n" + board + ":");
             ArrayList<Army> armiesOnBoard = new ArrayList<>();
 
             for (Army army : armies)
@@ -545,7 +549,7 @@ public class Game {
 
             for (Army army : armiesOnBoard)
             {
-                System.out.println("  " + army.getOwner() + " army at " + army.getLocation()[2]);
+                Console.s.println("  " + army.getOwner() + " army at " + army.getLocation()[2]);
             }
         }
 
@@ -554,17 +558,13 @@ public class Game {
             System.out.println("\nRetreats:");
             for (Army army : retreatingArmies)
             {
-                System.out.println("  " + army.getOwner() + " army at " + "(" + army.getLocation()[0] + "," + army.getLocation()[1] + "," + army.getLocation()[2] + ")");
+                Console.s.println("  " + army.getOwner() + " army at " + "(" + army.getLocation()[0] + "," + army.getLocation()[1] + "," + army.getLocation()[2] + ")");
             }
         }
     }
 
-    public void displayGraphics(JFrame frame)
+    public void displayGraphics(Panel panel)
     {
-        SwingUtilities.invokeLater(() -> {
-            GameDisplay display = new GameDisplay(boards, armies, displayedOrders);
-            frame.add(display);
-            frame.setVisible(true);
-        });
+            panel.updateDisplay(boards, armies, displayedOrders);
     }
 }
